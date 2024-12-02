@@ -20,7 +20,7 @@ class ProjectSection(Nonterminal):
         
         
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     super().expand()
     #     self.context["number_of_projects"] = len(self.children)
     #     for child in self.children:
@@ -57,7 +57,7 @@ class Project(Nonterminal):
         self.id = f"{self}_{Project.count}"
 
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     super().expand()
     #     self.context = {}
     #     for child in self.children:
@@ -119,7 +119,7 @@ class ProjectDescription(Terminal):
     #     self.parent_id = parent_id
     #     self.context[self.parent_id][str(self)] = self #adding self allows self.value to be updated by the DataFactory
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     return self
     
 class ProjectTools(Terminal):
@@ -131,7 +131,7 @@ class ProjectTools(Terminal):
     #     self.parent_id = parent_id
     #     self.context[self.parent_id][str(self)] = self
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     return self
 
 class ProjectDate(Terminal):
@@ -143,7 +143,7 @@ class ProjectDate(Terminal):
     #     self.parent_id = parent_id
     #     self.context[self.parent_id][str(self)] = self
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     return self
     
 
@@ -158,7 +158,7 @@ class ProjectAchievements(Nonterminal):
     def __init__(self):
         self.value = None
     
-    def expand(self):
+    def expand(self, context=None):
         super().expand()
         self.context = [child for child in self.children]
         return self
@@ -176,7 +176,8 @@ class ProjectAchievementItem(Terminal):
     def __init__(self):
         self.value = None
     
-    def expand(self):
+    def expand(self, context=None):
+        self.value="Did a thing"
         return self
     
     def to_latex(self):

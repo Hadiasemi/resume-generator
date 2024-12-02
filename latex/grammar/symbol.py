@@ -11,7 +11,7 @@ class SymbolFactory:
 
 class Symbol(ABC):
     @abstractmethod
-    def expand(self):
+    def expand(self, context=None):
         raise NotImplementedError("You must implement this method.")
     
     @abstractmethod

@@ -14,6 +14,10 @@ class Body(Nonterminal):
     def __init__(self):
         super().__init__(Body.rules, Body.latex)
 
+    def expand(self, context=None):
+        context = context or {}
+        
+
 class EducationSection(Nonterminal):
     rules = [
         (("CalPolyEducation",), 0.5),
@@ -46,6 +50,7 @@ class Education(Nonterminal):
 
     def __init__(self):
         super().__init__(Education.rules, Education.latex)
+
     def to_latex(self):
         if self.has_expanded():
             return self.latex % tuple(child.to_latex() for child in self.children)

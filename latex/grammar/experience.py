@@ -1,6 +1,7 @@
 from grammar.terminal import Terminal
 from grammar.nonterminal import Nonterminal
 import random
+from grammar.symbol import SymbolFactory
 import latex_formats as lf
 
 
@@ -10,6 +11,21 @@ class ExperienceSection(Nonterminal):
     
     def __init__(self):
         super().__init__(ExperienceSection.rules, ExperienceSection.latex)
+
+    def expand(self, context=None):
+        if not context:
+            context = {}
+        
+        child_types = random.choices(*zip(*self.rules))[0]
+        self.children = SymbolFactory.create_instances(child_types)
+        
+        dates = ["September 2017 - Decembter 2017", "September 2018 - December 2018", "September 2019 - December 2019", "September 2020 - December 2020"]
+        for i, child in enumerate(self.children):
+            cur_context = context.copy()
+            cur_context['date'] = dates[i]
+            child.expand(cur_context)
+            
+        return self
         
 class Experience(Nonterminal):
     rules = [
@@ -40,7 +56,7 @@ class ExperienceTask(Terminal):
     def __init__(self):
         self.value = None
         
-    def expand(self):
+    def expand(self, context=None):
         self.value = "Did a thing"
         return self
 
@@ -53,7 +69,7 @@ class CompanyName(Terminal):
     def __init__(self):
         self.value = None
         
-    def expand(self):
+    def expand(self, context=None):
         company = random.choice(list(self.COMPANY_MAP.keys()))
         self.value = r'''%s [\href{%s}{\faIcon{globe}}]''' % (company, self.COMPANY_MAP[company])
         return self
@@ -62,7 +78,7 @@ class JobTitle(Terminal):
     def __init__(self):
         self.value = None
         
-    def expand(self):
+    def expand(self, context=None):
         self.value = "Software Engineer"
         return self
     
@@ -70,6 +86,7 @@ class DateRange(Terminal):
     def __init__(self):
         self.value = None
         
-    def expand(self):
-        self.value = "June 2022 - Present"
+    def expand(self, context=None):
+        context = context or {}
+        self.value = context.get("date") or "June 2022 - Present"
         return self

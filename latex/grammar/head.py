@@ -113,11 +113,12 @@ class FullName(Terminal):
     def __init__(self):
         self.value = None
 
-    def expand(self):
+    def expand(self, context=None):
         # self.value = FullName.data_factory.generate(None)
+        self.value = "Matthew Chak"
         return self
 
-    # def expand(self):
+    # def expand(self, context=None):
     #     """TODO: Replace with name generator module"""
     #     letters = 'abcdefghijklmnopqrstuvwxyz'
     #     fn_length = random.randint(5,10)
@@ -133,7 +134,7 @@ class GitHub(Terminal):
     def __init__(self):
         self.value = None
 
-    def expand(self):
+    def expand(self, context=None):
         """TODO: 2 options
         1. replace each field with a call to an info generator
         2. register the class in a central DataFactory that generates the fields once it has ALL instances
@@ -143,6 +144,7 @@ class GitHub(Terminal):
         #     "href" : "https://github.com/iLykTurtlz",
         #     "GitHub" : "iLykTurtlz"
         # }
+        self.value = "iLykTurtlz"
         return self
         
 
@@ -152,11 +154,12 @@ class LinkedIn(Terminal):
     def __init__(self):
         self.value = None
     
-    def expand(self):
+    def expand(self, context=None):
         # self.value = {
         #     "href" : "https://www.linkedin.com/in/paul-jarski-a4a04386/",
         #     "LinkedIn" : "paul-jarski-a4a04386"
         # }
+        self.value = "dontgohere"
         return self
          
          
@@ -166,7 +169,7 @@ class Phone(Terminal):
     def __init__(self):
         self.value = None
 
-    def expand(self):
+    def expand(self, context=None):
         #TODO: make area code statistically representative, NOT all Bay Area
         area_code = [4,1,5]
         last_four = [random.randint(0,9) for _ in range(4)]
@@ -181,8 +184,9 @@ class Email(Terminal):
     def __init__(self):
         self.value = None
 
-    def expand(self):
+    def expand(self, context=None):
         # self.value = {"Email" : "pjarski@calpoly.edu"}
+        self.value = "pjarski@calpoly.edu"
         return self
     
 
@@ -191,7 +195,8 @@ class GeographicalInfo(Terminal):
     def __init__(self):
         self.value = None
 
-    def expand(self):
+    def expand(self, context=None):
         # """TODO: vary the info string formats"""
         # self.value = {"GeographicalInfo": "San Luis Obispo, CA"}
+        self.value = "San Luis Obispo"
         return self

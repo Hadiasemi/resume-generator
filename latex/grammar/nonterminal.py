@@ -14,10 +14,10 @@ class Nonterminal(Symbol, ABC):
         self.children = None
 
     #Nonterminals do not need to override expand
-    def expand(self):
+    def expand(self, context=None):
         # print(f"rules: {self.rules}")
         child_types = random.choices(*zip(*self.rules))[0]
-        self.children = [child.expand() for child in SymbolFactory.create_instances(child_types)]
+        self.children = [child.expand(context) for child in SymbolFactory.create_instances(child_types)]
         return self
 
     def has_expanded(self):
@@ -27,9 +27,15 @@ class Nonterminal(Symbol, ABC):
     def to_latex(self):
         print(f"{self}")
         if self.has_expanded():
+            print(str(self), self.children)
             return self.latex % ("\n".join(child.to_latex() for child in self.children),)
         else:
             raise Exception(f"{self} must be expanded first")
+        
+    def jsonify(self):
+        return {
+            str(self): [child.jsonify() for child in self.children]
+        }
 
 
 class S(Nonterminal):
