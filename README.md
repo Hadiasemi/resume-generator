@@ -38,7 +38,12 @@ os, uuid, random, json, subprocess
 
 ## Execution
 
-To run, cd into the `backend` directory and run `app.py`. Then navigate to `localhost:3000`.
+To run, cd into the `backend` directory and run `app.py` by typing
+
+```python app.py```
+
+Then open a browser and navigate to `localhost:3000`.
+
 
 **Note:** Overview generation requires `GROQ_API_KEY` to be present in the OS environment. If it's not present, a random self-summary will be selected
 from a list of pre-generated texts.
